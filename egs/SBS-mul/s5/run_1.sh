@@ -554,8 +554,8 @@ if [[ $stage -le 60 ]]; then
               [ $invalid != 0 ] && utils/subset_data_dir.sh ${feat_unsup_dir} ${nutts_subset} ${feat_unsup_subset_dir}
             fi
             
-			nhl2=0
-			for nhl1 in 0 1; do
+            nhl2=0
+            for nhl1 in 0; do
               for nhl3 in 0; do
                 for alpha_3 in 0.001 0.005; do
                   for alpha_2 in 1.6 1.8; do
@@ -633,8 +633,8 @@ if [[ $stage -le 61 ]]; then
               [ $invalid != 0 ] && utils/subset_data_dir.sh ${feat_unsup_dir} ${nutts_subset} ${feat_unsup_subset_dir}
             fi
             
-			nhl2=0
-			for nhl1 in 0 1; do
+            nhl2=0
+            for nhl1 in 0; do
               for nhl3 in 0; do
                 for alpha_3 in 0.001 0.005; do
                   for alpha_2 in 1.6 1.8; do

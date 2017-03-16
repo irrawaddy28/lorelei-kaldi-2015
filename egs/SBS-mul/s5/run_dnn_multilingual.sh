@@ -432,6 +432,7 @@ if [ $stage -le 2 ]; then
         --num-tgt $output_dim \
         --copy-feats "false" \
         --randomizer-size ${randomizer_size} --minibatch-size ${minibatch_size} \
+        --use-gpu ${use_gpu} \
         --train-tool "nnet-train-frmshuff --objective-function=$objective_function" \
         ${data_tr90} ${data_cv10} lang-dummy ${ali_dir[0]} ${ali_dir[0]} $dir			# ${ali_dir[0]} is used only to copy the HMM transition model
         

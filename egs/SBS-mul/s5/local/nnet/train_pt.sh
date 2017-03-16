@@ -56,6 +56,7 @@ frame_weights=     # per-frame weights for gradient weighting
 train_iters=20
 randomizer_size=32768  # Maximum number of samples we want to have in memory at once
 minibatch_size=256     # num samples per mini-batch
+use_gpu="wait"
 
 # OTHER
 seed=777    # seed value used for training data shuffling and initialization
@@ -449,6 +450,7 @@ steps/nnet/train_scheduler.sh \
   --max-iters $train_iters \
   --randomizer-size ${randomizer_size} \
   --minibatch-size ${minibatch_size} \
+  --use-gpu ${use_gpu} \
   ${train_opts} \
   ${train_tool:+ --train-tool "$train_tool"} \
   ${frame_weights:+ --frame-weights "$frame_weights"} \

@@ -15,7 +15,7 @@ cmvn_opts=      # speaker specific cmvn for i/p features. For mean+var normaliza
 delta_order=0   # Use 1 for delta, 2 for delta-delta
 splice=5
 splice_step=1
-use_gpu=yes
+use_gpu="wait"
 # End of config.
 
 echo "$0 $@"  # Print the command line for logging
@@ -167,7 +167,7 @@ fi
 # Make label(target) posteriors and frame weights of task specific feature directories
 for i in $(seq 0 $[n_tasks-1]); do
 
-	  taskid="task_$((i+1))"
+	taskid="task_$((i+1))"
     lang=${lang_list[$i]}
     dtype=${dtype_list[$i]}
     ltype=${ltype_list[$i]}
