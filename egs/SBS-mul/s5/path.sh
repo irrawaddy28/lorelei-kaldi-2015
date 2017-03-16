@@ -13,7 +13,7 @@ elif  [[ `hostname` == "ifp-04" ]]; then
 elif  [[ `hostname` == "IFP-05" ]]; then
   export KALDI_ROOT=/ws/ifp-48_1/hasegawa/amitdas/work/SBS-kaldi-2015_`hostname`
   export N_BG=4
-  export parallel_opts="--num-threads 6"
+  export parallel_opts="--num-threads 4"
   export randomizer_size=262144   # per-job size = 2^18 = 262144 fills about 1.5 GB in GPU
   export minibatch_size=512 
 fi

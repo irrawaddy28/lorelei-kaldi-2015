@@ -46,6 +46,7 @@ randomizer_size=32768  # Maximum number of samples we want to have in memory at 
 minibatch_size=256     # num samples per mini-batch
 use_gpu="wait"
 parallel_opts="--num-threads 6"
+skip_decode=false
 
 # Frame weighting options
 threshold_default=0.7
@@ -485,7 +486,7 @@ fi
 L=${lang_code[0]}     # the first lang is the test language
 exp_dir=${ali_dir[0]} # this should be a gmm dir
 # Decoding stage
-if [ $stage -le 3 ]; then
+if [ $stage -le 3 ] && ! $skip_decode; then
   case $nnet_type in
     dnn_small)
       echo "Decoding $L"

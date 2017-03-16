@@ -71,7 +71,8 @@ if [ $stage -le 1 ]; then
   # Store fMLLR features, so we can train on them easily
     
   # eval
-  for lang in ${TRAIN_LANG} ${TEST_LANG}; do
+  #for lang in ${TRAIN_LANG} ${TEST_LANG}; do
+  for lang in ${TEST_LANG}; do
 	dir=$data_fmllr/$lang/eval
 	steps/nnet/make_fmllr_feats.sh --nj $feats_nj --cmd "$train_cmd" \
 		--transform-dir $gmmdir/decode_eval_$lang \
@@ -81,7 +82,8 @@ if [ $stage -le 1 ]; then
   done
   
   # dev
-  for lang in ${TRAIN_LANG} ${TEST_LANG}; do
+  #for lang in ${TRAIN_LANG} ${TEST_LANG}; do
+  for lang in ${TEST_LANG}; do
     dir=$data_fmllr/$lang/dev
     steps/nnet/make_fmllr_feats.sh --nj $feats_nj --cmd "$train_cmd" \
        --transform-dir $gmmdir/decode_dev_$lang \
@@ -91,7 +93,7 @@ if [ $stage -le 1 ]; then
   done
   
   # train
-  for lang in ${UNILANG_CODE} ; do
+  for lang in ${UNILANG_CODE}; do
     dir=$data_fmllr/$lang/train
     steps/nnet/make_fmllr_feats.sh --nj $feats_nj --cmd "$train_cmd" \
       --transform-dir $alidir \
