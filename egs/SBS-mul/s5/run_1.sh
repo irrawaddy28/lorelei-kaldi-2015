@@ -554,14 +554,15 @@ if [[ $stage -le 60 ]]; then
               [ $invalid != 0 ] && utils/subset_data_dir.sh ${feat_unsup_dir} ${nutts_subset} ${feat_unsup_subset_dir}
             fi
             
+			nhl2=0
 			for nhl1 in 0 1; do
-              for nhl3 in 0 1; do
+              for nhl3 in 0; do
                 for alpha_3 in 0.001 0.005; do
-                  for alpha_2 in 1.6; do
+                  for alpha_2 in 1.6 1.8; do
                     for alpha_1 in 1.0 2.0; do
                       i=$((i%N_BG))
                       ((i++==0)) && wait
-                      etag=type"ssu"_fw${thresh[0]}${thresh[1]}${thresh[2]}_cop${num_copies[0]}${num_copies[1]}${num_copies[2]}_unsup${nutts_subset}_alpha${alpha_1}${alpha_2}${alpha_3}_nhl${nhl1}${nhl3}
+                      etag=type"ssu"_fw${thresh[0]}${thresh[1]}${thresh[2]}_cop${num_copies[0]}${num_copies[1]}${num_copies[2]}_unsup${nutts_subset}_alpha${alpha_1}${alpha_2}${alpha_3}_nhl${nhl1}${nhl2}${nhl3}
                       nnet_outdir=${dnn_dir}/multisoftmax_pt_${etag}
                       mkdir -p $nnet_outdir
                       [ -f ${nnet_outdir}/final.nnet ] && echo "${nnet_outdir}/final.nnet exists. Skipping this run" && continue
@@ -632,14 +633,15 @@ if [[ $stage -le 61 ]]; then
               [ $invalid != 0 ] && utils/subset_data_dir.sh ${feat_unsup_dir} ${nutts_subset} ${feat_unsup_subset_dir}
             fi
             
+			nhl2=0
 			for nhl1 in 0 1; do
-              for nhl3 in 0 1; do
+              for nhl3 in 0; do
                 for alpha_3 in 0.001 0.005; do
-                  for alpha_2 in 1.6; do
+                  for alpha_2 in 1.6 1.8; do
                     for alpha_1 in 1.0 2.0; do
                       i=$((i%N_BG))
                       ((i++==0)) && wait
-                      etag=type"ssu"_fw${thresh[0]}${thresh[1]}${thresh[2]}_cop${num_copies[0]}${num_copies[1]}${num_copies[2]}_unsup${nutts_subset}_alpha${alpha_1}${alpha_2}${alpha_3}_nhl${nhl1}${nhl3}
+                      etag=type"spu"_fw${thresh[0]}${thresh[1]}${thresh[2]}_cop${num_copies[0]}${num_copies[1]}${num_copies[2]}_unsup${nutts_subset}_alpha${alpha_1}${alpha_2}${alpha_3}_nhl${nhl1}${nhl2}${nhl3}
                       nnet_outdir=${dnn_dir}/multisoftmax_pt_${etag}
                       mkdir -p $nnet_outdir
                       [ -f ${nnet_outdir}/final.nnet ] && echo "${nnet_outdir}/final.nnet exists. Skipping this run" && continue
