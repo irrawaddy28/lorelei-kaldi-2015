@@ -45,6 +45,7 @@ parallel_nhn_opts=  # no. of hidden neurons in the MTL tasks, Default 1024 neuro
 randomizer_size=32768  # Maximum number of samples we want to have in memory at once
 minibatch_size=256     # num samples per mini-batch
 use_gpu="wait"
+min_iters=3
 parallel_opts="--num-threads 6"
 skip_decode=false
 
@@ -432,7 +433,7 @@ if [ $stage -le 2 ]; then
         --num-tgt $output_dim \
         --copy-feats "false" \
         --randomizer-size ${randomizer_size} --minibatch-size ${minibatch_size} \
-        --use-gpu ${use_gpu} \
+        --min-iters ${min_iters} --use-gpu ${use_gpu} \
         --train-tool "nnet-train-frmshuff --objective-function=$objective_function" \
         ${data_tr90} ${data_cv10} lang-dummy ${ali_dir[0]} ${ali_dir[0]} $dir			# ${ali_dir[0]} is used only to copy the HMM transition model
         

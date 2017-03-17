@@ -56,6 +56,7 @@ frame_weights=     # per-frame weights for gradient weighting
 train_iters=20
 randomizer_size=32768  # Maximum number of samples we want to have in memory at once
 minibatch_size=256     # num samples per mini-batch
+min_iters=3
 use_gpu="wait"
 
 # OTHER
@@ -339,7 +340,7 @@ else
   feature_transform_old=$feature_transform
   feature_transform=${feature_transform%.nnet}_cmvn-g.nnet
   echo "Renormalizing MLP input features into $feature_transform"
-  nnet-forward --use-gpu=yes \
+  nnet-forward --use-gpu=${use_gpu} \
     $feature_transform_old "$(echo $feats_tr | sed 's|train.scp|train.scp.10k|')" \
     ark:- 2>$dir/log/nnet-forward-cmvn.log |\
   compute-cmvn-stats ark:- - | cmvn-to-nnet - - |\
@@ -450,7 +451,7 @@ steps/nnet/train_scheduler.sh \
   --max-iters $train_iters \
   --randomizer-size ${randomizer_size} \
   --minibatch-size ${minibatch_size} \
-  --use-gpu ${use_gpu} \
+  --min-iters ${min_iters} --use-gpu ${use_gpu} \
   ${train_opts} \
   ${train_tool:+ --train-tool "$train_tool"} \
   ${frame_weights:+ --frame-weights "$frame_weights"} \

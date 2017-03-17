@@ -28,6 +28,7 @@ cmvn_opts=" --norm-means=true --norm-vars=true "
 delta_order=0   # Use 1 for delta, 2 for delta-delta
 splice=5
 splice_step=1
+min_iters=3
 
 # Bottleneck configurations
 use_bn=false
@@ -431,6 +432,7 @@ for thresh in 0.6; do # 0.5 0.6 0.7 0.8 0.9
             --lat-dir-csl "${lats_pt_dir}:-" \
             --dup-and-merge-csl "${num_copies_1}>>1:${num_copies_2}>>2" \
             ${cmvn_opts:+ --cmvn-opts "$cmvn_opts"} --delta-order $delta_order --splice $splice --splice-step $splice_step \
+            --min-iters ${min_iters} \
             ${parallel_opts:+ --parallel-opts "$parallel_opts"} \
             "${TEST_LANG}:${UNILANG_CODE}" "${ali_pt_dir}:${ali_dt_dir}" \
             "${data_fmllr_dir}/${TEST_LANG}/train:${data_fmllr_dir}/${UNILANG_CODE}/train" ${data_fmllr_dir}/${TEST_LANG}/combined_$etag \
@@ -465,6 +467,7 @@ for thresh in 0.6; do # 0.5 0.6 0.7 0.8 0.9
             --lat-dir-csl "${lats_pt_dir}:-" \
             --dup-and-merge-csl "${num_copies_1}>>1:${num_copies_2}>>2" \
             ${cmvn_opts:+ --cmvn-opts "$cmvn_opts"} --delta-order $delta_order --splice $splice --splice-step $splice_step \
+            --min-iters ${min_iters} \
             ${parallel_opts:+ --parallel-opts "$parallel_opts"} \
             "${TEST_LANG}:${UNILANG_CODE}" "${ali_pt_dir}:${ali_mono_dt_dir}" \
             "${data_fmllr_dir}/${TEST_LANG}/train:${data_fmllr_dir}/${UNILANG_CODE}/train" ${data_fmllr_dir}/${TEST_LANG}/combined_$etag \
@@ -502,6 +505,7 @@ for thresh in 0.6; do # full range: 0.5 0.6 0.7 0.8 0.9
                 --lat-dir-csl "${lats_pt_dir}:-:-" \
                 --dup-and-merge-csl "${num_copies_1}>>1:${num_copies_2}>>2:${num_copies_3}>>3" \
                 ${cmvn_opts:+ --cmvn-opts "$cmvn_opts"} --delta-order $delta_order --splice $splice --splice-step $splice_step \
+                --min-iters ${min_iters} \
                 ${parallel_opts:+ --parallel-opts "$parallel_opts"} \
                 "${TEST_LANG}:${UNILANG_CODE}:${UNILANG_CODE}" "${ali_pt_dir}:${ali_dt_dir}:${ali_mono_dt_dir}" \
                 "${data_fmllr_dir}/${TEST_LANG}/train:${data_fmllr_dir}/${UNILANG_CODE}/train:${data_fmllr_dir}/${UNILANG_CODE}/train" ${data_fmllr_dir}/${TEST_LANG}/combined_$etag \
@@ -574,6 +578,7 @@ if [[ $stage -le 60 ]]; then
                         --lat-dir-csl "${lats_pt_dir}:-:-" \
                         --dup-and-merge-csl "${num_copies[0]}>>1:${num_copies[1]}>>2:${num_copies[2]}>>3" \
                         ${cmvn_opts:+ --cmvn-opts "$cmvn_opts"} --delta-order $delta_order --splice $splice --splice-step $splice_step \
+                        --min-iters ${min_iters} \
                         ${parallel_opts:+ --parallel-opts "$parallel_opts"} \
                         "${TEST_LANG}:${UNILANG_CODE}:${TEST_LANG}" "${ali_pt_dir}:${ali_dt_dir}:${ali_pt_dir}" \
                         "${feat_pt_dir}:${feat_dt_dir}:${feat_unsup_subset_dir}" \
@@ -637,7 +642,7 @@ if [[ $stage -le 61 ]]; then
             for nhl1 in 0; do
               for nhl3 in 0; do
                 for alpha_3 in 0.001 0.005; do
-                  for alpha_2 in 1.6 1.8; do
+                  for alpha_2 in 1.6 1.8 2.0; do
                     for alpha_1 in 1.0 2.0; do
                       i=$((i%N_BG))
                       ((i++==0)) && wait
@@ -653,6 +658,7 @@ if [[ $stage -le 61 ]]; then
                         --lat-dir-csl "${lats_pt_dir}:-:-" \
                         --dup-and-merge-csl "${num_copies[0]}>>1:${num_copies[1]}>>2:${num_copies[2]}>>3" \
                         ${cmvn_opts:+ --cmvn-opts "$cmvn_opts"} --delta-order $delta_order --splice $splice --splice-step $splice_step \
+                        --min-iters ${min_iters} \
                         ${parallel_opts:+ --parallel-opts "$parallel_opts"} \
                         "${TEST_LANG}:${UNILANG_CODE}:${TEST_LANG}" "${ali_pt_dir}:${ali_mono_dt_dir}:${ali_pt_dir}" \
                         "${feat_pt_dir}:${feat_dt_dir}:${feat_unsup_subset_dir}" \
@@ -725,6 +731,7 @@ for nutts_small_unsup in 4000 ; do  # 4000 3000 2000 1000
                 --lat-dir-csl "${lats_pt_dir}:-:${lats_unsup_dir}" \
                  --dup-and-merge-csl "${num_copies[0]}>>1:${num_copies[1]}>>2:${num_copies[2]}>>1" \
                 ${cmvn_opts:+ --cmvn-opts "$cmvn_opts"} --delta-order $delta_order --splice $splice --splice-step $splice_step \
+                --min-iters ${min_iters} \
                 ${parallel_opts:+ --parallel-opts "$parallel_opts"} \
                 "${TEST_LANG}:${UNILANG_CODE}:${TEST_LANG}" "${ali_pt_dir}:${ali_dt_dir}:${ali_pt_dir}" \
                 "${feat_pt_dir}:${feat_dt_dir}:${feat_unsupsmall_dir}" \
