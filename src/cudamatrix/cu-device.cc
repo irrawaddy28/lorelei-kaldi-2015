@@ -518,13 +518,34 @@ void CuDevice::Free(void *ptr) {
 
 void* CuDevice::MallocPitch(size_t row_bytes, size_t num_rows, size_t *pitch) {
   void *ret_ptr = NULL;
+  int32 num_times = 0;
+  BaseFloat wait_time = 0.0;
+
   cudaError_t e = cudaMallocPitch(&ret_ptr, pitch, row_bytes, num_rows);
-  if (e != cudaSuccess) {
+
+  while (e != cudaSuccess) {
+    PrintMemoryUsage();
+    KALDI_WARN << "CuDevice::MallocPitch: cannot allocate the requested memory ("
+      << row_bytes << " x " << num_rows << " = "
+      << row_bytes * num_rows << " bytes )" << " ( Attempt   " << num_times << " )";
+
+    int32 sec_sleep = 5;
+    if (num_times == 0)
+    KALDI_WARN << "Will try again indefinitely every " << sec_sleep
+               << " seconds to get a GPU.";
+    num_times++;
+    wait_time += sec_sleep;
+    sleep(sec_sleep);
+    cudaGetLastError(); // reset the error state
+    e = cudaMallocPitch(&ret_ptr, pitch, row_bytes, num_rows);
+  }
+
+ /* if (e != cudaSuccess) {
     PrintMemoryUsage();
     KALDI_ERR << "CuDevice::MallocPitch: cannot allocate the requested memory (" 
       << row_bytes << " x " << num_rows << " = "
       << row_bytes * num_rows << " bytes )";
-  }
+  } */
   return ret_ptr;
 }
 
