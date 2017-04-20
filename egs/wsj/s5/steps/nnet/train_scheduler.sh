@@ -26,6 +26,9 @@ keep_lr_iters=0 # fix learning rate for N initial epochs,
 start_halving_impr=0.01
 end_halving_impr=0.001
 halving_factor=0.5
+# target interpolation
+tgt_interp_mode="none" # "none|soft|hard"
+tgt_interp_wt=1.0
 # misc.
 use_gpu="wait"
 verbose=1
@@ -97,6 +100,7 @@ log=$dir/log/iter00.initial.log; hostname>$log
 $train_tool --cross-validate=true \
  --use-gpu=$use_gpu \
  --minibatch-size=$minibatch_size --randomizer-size=$randomizer_size --randomize=false --verbose=$verbose \
+ --tgt-interp-mode=${tgt_interp_mode} --tgt-interp-wt=${tgt_interp_wt} \
  ${feature_transform:+ --feature-transform=$feature_transform} \
  ${frame_weights:+ "--frame-weights=$frame_weights"} \
  "$feats_cv" "$labels_cv" $mlp_best \
@@ -123,6 +127,7 @@ for iter in $(seq -w $max_iters); do
    --use-gpu=$use_gpu \
    --learn-rate=$learn_rate --momentum=$momentum --l1-penalty=$l1_penalty --l2-penalty=$l2_penalty \
    --minibatch-size=$minibatch_size --randomizer-size=$randomizer_size --randomize=true --verbose=$verbose \
+   --tgt-interp-mode=${tgt_interp_mode} --tgt-interp-wt=${tgt_interp_wt} \
    --binary=true \
    ${feature_transform:+ --feature-transform=$feature_transform} \
    ${frame_weights:+ "--frame-weights=$frame_weights"} \
@@ -138,6 +143,7 @@ for iter in $(seq -w $max_iters); do
   $train_tool --cross-validate=true \
    --use-gpu=$use_gpu \
    --minibatch-size=$minibatch_size --randomizer-size=$randomizer_size --randomize=false --verbose=$verbose \
+   --tgt-interp-mode=${tgt_interp_mode} --tgt-interp-wt=${tgt_interp_wt} \
    ${feature_transform:+ --feature-transform=$feature_transform} \
    ${frame_weights:+ "--frame-weights=$frame_weights"} \
    "$feats_cv" "$labels_cv" $mlp_next \

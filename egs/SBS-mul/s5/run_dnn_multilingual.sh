@@ -44,6 +44,8 @@ parallel_nhl_opts=  # no. of hidden layers in the MTL tasks, Default 0 hidden la
 parallel_nhn_opts=  # no. of hidden neurons in the MTL tasks, Default 1024 neurons for all tasks
 randomizer_size=32768  # Maximum number of samples we want to have in memory at once
 minibatch_size=256     # num samples per mini-batch
+tgt_interp_mode="none" #"none|soft|hard"
+tgt_interp_wt=1.0
 use_gpu="wait"
 min_iters=3
 parallel_opts="--num-threads 6"
@@ -432,6 +434,7 @@ if [ $stage -le 2 ]; then
         --frame-weights  "scp:$dir/ali-post/frame_weights_combined.scp" \
         --num-tgt $output_dim \
         --copy-feats "false" \
+        --tgt-interp-mode ${tgt_interp_mode} --tgt-interp-wt ${tgt_interp_wt} \
         --randomizer-size ${randomizer_size} --minibatch-size ${minibatch_size} \
         --min-iters ${min_iters} --use-gpu ${use_gpu} \
         --train-tool "nnet-train-frmshuff --objective-function=$objective_function" \

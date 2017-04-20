@@ -47,6 +47,8 @@ lda_dim=300        # LDA dimension (applies to `lda` feat_type)
 labels_trainf=      # use these labels to train (override deafault pdf alignments, has to be in 'Posterior' format, see ali-to-post) 
 labels_crossvf=
 num_tgt=           # force to use number of outputs in the MLP (default is autodetect)
+tgt_interp_mode="none" # "none|soft|hard"
+tgt_interp_wt=1.0
 
 # TRAINING SCHEDULER
 learn_rate=0.008   # initial learning rate
@@ -448,6 +450,7 @@ steps/nnet/train_scheduler.sh \
   ${feature_transform:+ --feature-transform $feature_transform} \
   --learn-rate $learn_rate \
   --randomizer-seed $seed \
+  --tgt-interp-mode ${tgt_interp_mode} --tgt-interp-wt ${tgt_interp_wt} \
   --max-iters $train_iters \
   --randomizer-size ${randomizer_size} \
   --minibatch-size ${minibatch_size} \

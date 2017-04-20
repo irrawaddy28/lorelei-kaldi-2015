@@ -1,17 +1,17 @@
 if [[ `hostname` == "ifp-48" ]]; then
-  export KALDI_ROOT=/ws/ifp-48_1/hasegawa/amitdas/work/SBS-kaldi-2015
+  export KALDI_ROOT=../../../
   export N_BG=4
   export parallel_opts="--num-threads 2"
   export randomizer_size=131072   # per-job size = 2^17 = 131072 fills about 750 MB in GPU
   export minibatch_size=512
 elif  [[ `hostname` == "ifp-04" ]]; then
-  export KALDI_ROOT=/ws/ifp-04_2/hasegawa/amitdas/work/SBS-kaldi-2015
+  export KALDI_ROOT=../../../
   export N_BG=4
   export parallel_opts="--num-threads 6"
   export randomizer_size=524288   # per-job size = 2^19 = 524288 fills about 2.3 GB in GPU
   export minibatch_size=512
 elif  [[ `hostname` == "IFP-05" ]]; then
-  export KALDI_ROOT=/ws/ifp-48_1/hasegawa/amitdas/work/SBS-kaldi-2015_`hostname`
+  export KALDI_ROOT=../../../
   export N_BG=4
   export parallel_opts="--num-threads 4"
   export randomizer_size=262144   # per-job size = 2^18 = 262144 fills about 1.5 GB in GPU
