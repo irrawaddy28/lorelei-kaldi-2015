@@ -8,7 +8,7 @@ elif  [[ `hostname` == "ifp-04" ]]; then
   export KALDI_ROOT=../../../
   export N_BG=4
   export parallel_opts="--num-threads 6"
-  export randomizer_size=524288   # per-job size = 2^19 = 524288 fills about 2.3 GB in GPU
+  export randomizer_size=262144   # per-job size = 2^19 = 524288 fills about 2.3 GB in GPU
   export minibatch_size=512
 elif  [[ `hostname` == "IFP-05" ]]; then
   export KALDI_ROOT=../../../
