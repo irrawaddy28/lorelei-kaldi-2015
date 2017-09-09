@@ -7,3 +7,5 @@ UR urdu
 CA cantonese
 AM amharic
 DI dinka
+TI tigrinya
+OR oromo

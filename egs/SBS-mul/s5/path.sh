@@ -22,4 +22,4 @@ export PATH=$PWD/utils/:$KALDI_ROOT/tools/sph2pipe_v2.5/:$KALDI_ROOT/src/bin:$KA
 export LC_ALL=C
 export IRSTLM=$KALDI_ROOT/tools/irstlm
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$KALDI_ROOT/tools/openfst/lib:$LD_LIBRARY_PATH  #/usr/local/cuda/lib64/stubs:
-export SBS_DATADIR=/ws/rz-cl-2/hasegawa/amitdas/corpus/ws15-pt-data/data
+export DATADIR=/ws/rz-cl-2/hasegawa/amitdas/corpus/lorelei/data
